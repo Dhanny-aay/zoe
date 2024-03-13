@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import Desk from "./deskApp/desk";
+import Login from "./deskApp/login";
+import Home from "./deskApp/home";
 
 function App() {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <>
+   <Routes>
+    <Route path="/" element={<Desk/>}/>
+    <Route path="/signin" element={<Login/>}/>
+    <Route path="/Home" element={<Home/>}/>
+   </Routes>
+   </>
   );
 }
 
