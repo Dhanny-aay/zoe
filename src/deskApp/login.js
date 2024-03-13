@@ -4,7 +4,7 @@ import load from './assets/load.gif';
 import shape from './assets/Shape.svg';
 import lin from './assets/link.svg';
 import bin from './assets/trash.svg';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Login = () => {
 
@@ -12,6 +12,32 @@ const Login = () => {
     const [limitReached, setLimitReached] = useState(false);
     const [replace, setReplace] = useState(false);
     const [linkedDevices, setLinkedDevices] = useState(false);
+
+    useEffect(() => {
+        if (deviceCheck) {
+            const deviceCheckTimeout = setTimeout(() => {
+                setDeviceCheck(false);
+                setLimitReached(true);
+            }, 5000);
+
+            return () => clearTimeout(deviceCheckTimeout);
+        }
+    }, [deviceCheck]);
+
+    const handleStart = () => {
+        setDeviceCheck(true);
+    };
+
+    const handleUnlink = () => {
+        setLimitReached(false);
+        setLinkedDevices(true);
+    };
+
+    const handleContinue = () => {
+        setLinkedDevices(false);
+       setReplace(true);
+    };
+
 
     const devices =[
         {device:"MacBook Pro"},
@@ -43,7 +69,7 @@ const Login = () => {
                             <img src={ shape } className=" w-[49px]" alt="" />
                             <p className=" font-Afacad text-xl text-center mt-6 font-semibold">Linked device limit reached</p>
                             <p className=" font-Afacad text-center text-sm text-[#000000CC] font-normal">Remove a device to continue </p>
-                            <p className=" font-Afacad text-center text-base mt-3 text-[#000000] font-medium">Click here to <span className=" text-[#78C257]">unlink</span> a device</p>
+                            <p className=" font-Afacad text-center text-base mt-3 text-[#000000] font-medium">Click here to <span className=" text-[#78C257] cursor-pointer " onClick={handleUnlink}>unlink</span> a device</p>
                         </div>
                     </div>}
 
@@ -59,7 +85,7 @@ const Login = () => {
                                 </div>
                             ))}
                             <p className=" font-Afacad text-center mt-2 text-sm text-[#000000CC] font-normal">Click continue to confirm removal of device</p>
-                            <button className=' w-full bg-[#78C257] rounded-[36px] h-[48px] mt-[12px] font-medium text-black text-center font-Afacad text-base'>Continue</button>
+                            <button className=' w-full bg-[#78C257] rounded-[36px] h-[48px] mt-[12px] font-medium text-black text-center font-Afacad text-base' onClick={handleContinue}>Continue</button>
                         </div>
                     </div>}
 
@@ -69,7 +95,7 @@ const Login = () => {
                             <img src={ shape } className=" w-[49px]" alt="" />
                             <p className=" font-Afacad text-xl text-center mt-6 font-semibold">Do you want to replace MacBook Pro with your Hp EliteBook</p>
                             <p className=" font-Afacad text-center mt-2 text-sm text-[#000000CC] font-normal">Remove a device to continue</p>
-                            <button className=' w-full bg-[#78C257] rounded-[36px] h-[48px] mt-[12px] font-medium text-black text-center font-Afacad text-base'>Continue</button>
+                            <Link className=" w-full" to='/Home'><button className=' w-full bg-[#78C257] rounded-[36px] h-[48px] mt-[12px] font-medium text-black text-center font-Afacad text-base'>Continue</button></Link>
                         </div>
                     </div>}
 
@@ -104,7 +130,7 @@ const Login = () => {
                             <p className=" text-[#78C257] text-xs font-medium font-Afacad">Forgot Password</p>
                         </div>
                         
-                        <button className=' w-full bg-[#78C257] rounded-[36px] h-[48px] mt-[60px] text-black text-center font-Afacad text-base'>Continue</button>
+                        <button  onClick={handleStart} className=' w-full bg-[#78C257] rounded-[36px] h-[48px] mt-[60px] text-black text-center font-Afacad text-base'>Continue</button>
                         <Link to='/'><p className=' mt-[19px] font-Afacad font-medium text-base text-center'>Dont have an Account? <span className=' text-[#78C257]'>Register</span></p></Link>
                     </div>
                 </div>
