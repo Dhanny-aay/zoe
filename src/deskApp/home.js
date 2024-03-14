@@ -9,7 +9,7 @@ const Home = () => {
         <div className="w-full h-full flex justify-center items-center">
             <div className="w-[800px] bg-[#fff] flex flex-col items-center justify-center relative">
                 <Header/>
-                <div className=" w-full bg-white p-6">
+                <div className=" w-full bg-white p-6 relative">
 
                     <div className=" w-full border border-[#EAEBF0] rounded-[11px] flex flex-row">
                         <div className=" w-1/3 p-3 flex flex-col items-center justify-center border-r border-[#EAEBF0]">
